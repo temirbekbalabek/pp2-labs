@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\bin\Debug\pp2 lab1.exe.config
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\bin\Debug\pp2 lab1.exe
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\bin\Debug\pp2 lab1.pdb
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\obj\Debug\pp2 lab1.csprojResolveAssemblyReference.cache
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\obj\Debug\pp2 lab1.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\obj\Debug\pp2 lab1.exe
+C:\Users\User\Desktop\pp2 labs\pp2 lab1\pp2 lab1\obj\Debug\pp2 lab1.pdb
