@@ -13,31 +13,40 @@ namespace ConsoleApp3
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
             int index = 0;
+            int cnt = 1;
+            //Console.SetCursorPosition(10, 10);
             foreach (FileSystemInfo dd in d)
             {
-
                 if (index == cursor)
                 {
-                    Console.BackgroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
                 else
                 {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    if (dd.GetType() == typeof(FileInfo))
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    }
+                    if (dd.GetType() == typeof(DirectoryInfo))
+                    {
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                    }
                 }
-                Console.WriteLine(dd);
-                index++;
+                    Console.WriteLine("|"+cnt + ")" + dd+"|");
+                    index++;
+                    cnt++;
             }
-
         }
         static void Main(string[] args)
         {
             int cursor = 0;
             DirectoryInfo d = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs");
-
             DirectoryInfo b = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs");
             FileSystemInfo[] fs = d.GetFileSystemInfos();
+            Stack<int> stack = new Stack<int>();
             S(fs, cursor);
             while (true)
             {
@@ -54,14 +63,15 @@ namespace ConsoleApp3
                 {
                     if (fs[cursor].GetType() != typeof(DirectoryInfo))
                     {
-                        string text = File.ReadAllText(fs[cursor].FullName);
+                        StreamReader sr = new StreamReader(fs[cursor].FullName);
                         Console.Clear();
-                        Console.WriteLine(text);
+                        Console.WriteLine(sr.ReadToEnd());
                         Console.ReadKey();
                     }
                     else
                     {
                         d = new DirectoryInfo(fs[cursor].FullName);
+                        stack.Push(cursor);
                         cursor = 0;
                         fs = d.GetFileSystemInfos();
                     }
@@ -69,11 +79,11 @@ namespace ConsoleApp3
                 if (pk.Key == ConsoleKey.Escape)
                 {
                     if (d.FullName == b.FullName)
-                        return;
+                       return;
                     Console.Clear();
                     d = d.Parent;
+                    cursor = stack.Pop();
                     fs = d.GetFileSystemInfos();
-                    cursor = 0;
                 }
                 S(fs, cursor);
             }

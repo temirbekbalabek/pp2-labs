@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Serialization;
+using System.IO;
 namespace Complex
 {
-    class complex
+    [Serializable]
+    public class Complex
     {
-        int a, b;
-        public complex(int _a, int _b)
+
+        public int a, b;
+        public Complex() { }
+        public Complex(int _a, int _b)
         {
             a = _a;
             b = _b;
@@ -28,38 +32,38 @@ namespace Complex
             lcm = (e * f) / (gcd);
             return lcm;
         }
-        public static complex operator +(complex x, complex y)
+        public static Complex operator +(Complex x, Complex y)
         {
             int lcm = lcmm(x.b, y.b);
             int alymy = (lcm * x.a) / x.b + (lcm * y.a) / y.b;
             int bolymy = lcm;
             int gcd = (alymy * bolymy) / lcmm(alymy, bolymy);
-            complex g = new complex(alymy / gcd, bolymy / gcd);
+            Complex g = new Complex(alymy / gcd, bolymy / gcd);
             return g;
         }
-        public static complex operator *(complex x, complex y)
+        public static Complex operator *(Complex x, Complex y)
         {
             int alymy = x.a * y.a;
             int bolymy = x.b * y.b;
             int gcd = (alymy * bolymy) / lcmm(alymy, bolymy);
-            complex g = new complex(alymy/gcd, bolymy/gcd);
+            Complex g = new Complex(alymy / gcd, bolymy / gcd);
             return g;
         }
-        public static complex operator /(complex x, complex y)
+        public static Complex operator /(Complex x, Complex y)
         {
             int alymy = x.a * y.b;
             int bolymy = x.b * y.a;
             int gcd = (alymy * bolymy) / lcmm(alymy, bolymy);
-            complex g = new complex(alymy / gcd, bolymy / gcd);
+            Complex g = new Complex(alymy / gcd, bolymy / gcd);
             return g;
         }
-        public static complex operator -(complex x, complex y)
+        public static Complex operator -(Complex x, Complex y)
         {
             int lcm = lcmm(x.b, y.b);
             int alymy = (lcm * x.a) / x.b - (lcm * y.a) / y.b;
             int bolymy = lcm;
             int gcd = (alymy * bolymy) / lcmm(alymy, bolymy);
-            complex g = new complex(alymy / gcd, bolymy / gcd);
+            Complex g = new Complex(alymy / gcd, bolymy / gcd);
             return g;
         }
 

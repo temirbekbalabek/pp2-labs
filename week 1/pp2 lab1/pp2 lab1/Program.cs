@@ -16,7 +16,7 @@ namespace Example
             {
                 int b = int.Parse(s);//стриңнан интқа ауыстыру
                 int k = 0;
-                for (int i = 2; i < b; i++)
+                for (int i = 2; i <= Math.sqrt(b); i++)
                 {
                     if (b % i == 0)
                         k++;
