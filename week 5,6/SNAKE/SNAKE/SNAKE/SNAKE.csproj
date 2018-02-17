@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{852796E2-4E8D-4B56-B1F1-0F0BD03FE33F}</ProjectGuid>
+    <ProjectGuid>{55D33588-59E3-4758-A154-27C6D3F963DB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Snake</RootNamespace>
-    <AssemblyName>Snake</AssemblyName>
+    <RootNamespace>SNAKE</RootNamespace>
+    <AssemblyName>SNAKE</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -46,6 +46,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="snake.cs" />
+    <Compile Include="wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
