@@ -15,8 +15,8 @@ namespace Project_for_AskarAkshabayev
         public Products(string nname, int pprice, int qquantity)
         {
             name = nname;
-            pprice = price;
-            qquantity = quantity;
+            price = pprice;
+            quantity = qquantity;
         }
     }
 }

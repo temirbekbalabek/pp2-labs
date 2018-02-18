@@ -3,26 +3,73 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace Project_for_AskarAkshabayev
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("if want to see the list of 1 shop tap 1");
-            Console.WriteLine("if want to see the list of 2 shop tap 2");
-            Console.WriteLine("if want to see the list of 3 shop tap 3");
+            
             Shop shop = new Shop();
-            ConsoleKeyInfo pk = Console.ReadKey();
-            if (pk.Key == ConsoleKey.D1)
-                shop.cnt=1;
-            if (pk.Key == ConsoleKey.D2)
-                shop.cnt=2;
-            if (pk.Key == ConsoleKey.D3)
-                shop.cnt = 3;
-            shop.Shoplist();
-            shop.Draw();
+            while (true)
+            {
+                DirectoryInfo d = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles");
+                FileInfo[] f = d.GetFiles();
+                Console.Clear();
+                Console.WriteLine("if you want to see our shops, tap 1");
+                Console.WriteLine("if you want to create another shop, tap 2");
+                ConsoleKeyInfo pk = Console.ReadKey();
+
+                if (pk.Key == ConsoleKey.NumPad1)
+                {
+                    Console.Clear();
+                    for (int i = 0; i < f.Length; i++)
+                    {
+                        Console.WriteLine(f[i]);
+                    }
+                    string line = Console.ReadLine();
+                    for (int i = 0; i < f.Length; i++)
+                    {
+                        if (line == f[i].Name)
+                        {
+                            break;
+                        }
+                    }
+                        shop.nameoffiles = line;
+                        Console.Clear();
+                        shop.Shoplist();
+                        shop.Draw();
+                        Console.WriteLine("If you want to buy something, tap B");
+                        Console.WriteLine("if you want to sell something, tap S");
+                        ConsoleKeyInfo pk1 = Console.ReadKey();
+                        if (pk1.Key == ConsoleKey.B)
+                        {
+                            Console.Clear();
+                            string nameofproduct = Console.ReadLine();
+                            shop.Buy(nameofproduct);
+                            shop.Checking();
+                        }
+                        if (pk1.Key == ConsoleKey.S)
+                        {
+                            Console.Clear();
+                            string nameofproduct2 = Console.ReadLine();
+                            int b = int.Parse(Console.ReadLine());
+                            shop.Sell(nameofproduct2, b);
+                        }
+                    
+                }
+                if (pk.Key == ConsoleKey.NumPad2)
+                {
+                    Console.Clear();
+                    string line2 = Console.ReadLine();
+                    FileStream fs = new FileStream(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + line2 + ".txt",FileMode.OpenOrCreate,FileAccess.Write);
+                    StreamWriter sw = new StreamWriter(fs);
+                    sw.WriteLine("0");
+                    sw.Close();
+                }
+
+            }          
         }
     }
 }
