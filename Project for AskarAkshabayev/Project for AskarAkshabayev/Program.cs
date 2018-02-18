@@ -17,6 +17,7 @@ namespace Project_for_AskarAkshabayev
                 DirectoryInfo d = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles");
                 FileInfo[] f = d.GetFiles();
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("if you want to see our shops, tap 1");
                 Console.WriteLine("if you want to create another shop, tap 2");
                 ConsoleKeyInfo pk = Console.ReadKey();
@@ -28,18 +29,28 @@ namespace Project_for_AskarAkshabayev
                     {
                         Console.WriteLine(f[i]);
                     }
+                    int t=0;
                     string line = Console.ReadLine();
-                    for (int i = 0; i < f.Length; i++)
+                    /*foreach(FileInfo ff in f)
                     {
-                        if (line == f[i].Name)
+                        if (ff.Name == line)
                         {
+                            t = 1;
                             break;
                         }
                     }
+                    if (t == 0)
+                    {
+                        Console.WriteLine("Unfortunately, we do not this kind of shop");
+                        Console.ReadKey();
+                        continue;
+                    }*/
                         shop.nameoffiles = line;
                         Console.Clear();
                         shop.Shoplist();
                         shop.Draw();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+
                         Console.WriteLine("If you want to buy something, tap B");
                         Console.WriteLine("if you want to sell something, tap S");
                         ConsoleKeyInfo pk1 = Console.ReadKey();

@@ -54,11 +54,14 @@ namespace Project_for_AskarAkshabayev
             sw.Close();
             if (k == 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Sorry,unfortunately we do not have such kind of thing");
             }
             else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Congratulations,you have successfully bought the product");
-
+            }
         }
         public void Sell(string s,int a)
         {
@@ -90,6 +93,7 @@ namespace Project_for_AskarAkshabayev
                 }
             }
             sw.Close();
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("You have successfully sold the product!");
         }
         public void Draw()
