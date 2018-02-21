@@ -10,30 +10,30 @@ using System.Xml.Serialization;
 namespace Snake
 {
     [Serializable]
-   public class Snake
+    public class Snake
     {
-        public List<point> body;
+        public List<Point> body;
         public string t;
         public int global;
         public int xx, yy;
         public Snake()
         {
-            body = new List<point>();
-            body.Add(new point(5,5));
+            body = new List<Point>();
+            body.Add(new Point(5,5));
             t = "Q";
             global = 0;
         }
-        public void F1(Snake snake)
+        public void F1()
         {
             XmlSerializer xs = new XmlSerializer(typeof(Snake));
-            FileStream fs = new FileStream("data1.xml", FileMode.Truncate, FileAccess.ReadWrite);
-            xs.Serialize(fs, snake);
+            FileStream fs = new FileStream("d.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            xs.Serialize(fs, this);
             fs.Close();
         }
         public Snake F2()
         {
             XmlSerializer xs = new XmlSerializer(typeof(Snake));
-            FileStream fs = new FileStream("data1.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream("d.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             Snake snake = xs.Deserialize(fs) as Snake;
             fs.Close();
             return snake;
@@ -67,24 +67,34 @@ namespace Snake
             if (body[0].y > Console.WindowHeight - 1)
                 body[0].y = 0;
         }
-        public void Record( string username,int cnt)
+        public void RecordWrite()
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            StreamReader sr = new StreamReader(@"C:\Users\User\Desktop\pp2 labs\week 5,6\SNAKE\recorder.txt");
+            Console.WriteLine("The recorder is " + sr.ReadLine() + "\nhis record is " + sr.ReadLine());
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            sr.Close();
+            Console.WriteLine("Please tell me your name below");
+        }
+        public void RecordSave( string username,int cnt)
         {
             Console.Clear();
             Console.WriteLine("!!!GAME OVER!!!");
-            StreamReader ssr = new StreamReader(@"C:\Users\User\Desktop\SNAKE\recorder.txt");
+            StreamReader ssr = new StreamReader(@"C:\Users\User\Desktop\pp2 labs\week 5,6\SNAKE\recorder.txt");
             string name = ssr.ReadLine();
             int oldRecord = int.Parse(ssr.ReadLine());
             ssr.Close();
             if (cnt > oldRecord)
             {
-                StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\SNAKE\recorder.txt");
+                StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\week 5,6\SNAKE\recorder.txt");
                 sw.Write(username);
                 sw.WriteLine();
                 sw.Write(cnt);
                 sw.Close();
             }
+            Console.ReadKey();
         }
-        public bool CollisionWall(Snake snake, Wall wall)
+        public bool CollisionWithWall(Snake snake, Wall wall)
         {
             for (int i = 1; i < snake.body.Count; i++)
             {
@@ -99,7 +109,7 @@ namespace Snake
         public void Draw()
         {
             int index = 0;
-            foreach (point p in body)
+            foreach (Point p in body)
             {
                 if (index == 0)
                     Console.ForegroundColor = ConsoleColor.Yellow;

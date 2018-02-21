@@ -9,16 +9,16 @@ using System.Xml.Serialization;
 namespace Snake
 {
     [Serializable]
-   public class Wall
+    public class Wall
     {
-        public List<point> asdf;
+        public List<Point> asdf;
         public string a;
         public int cnt;
-        public void F1(Wall wall)
+        public void F1()
         {
             XmlSerializer xs = new XmlSerializer(typeof(Wall));
             FileStream fs = new FileStream("data2.xml", FileMode.Truncate, FileAccess.ReadWrite);
-            xs.Serialize(fs, wall);
+            xs.Serialize(fs, this);
             fs.Close();
         }
         public Wall F2()
@@ -31,8 +31,8 @@ namespace Snake
         }
         public void wallpoint()
         {
-            StreamReader sw = new StreamReader(@"C: \Users\User\Desktop\SNAKE\"+cnt+".txt");
-            asdf = new List<point>();
+            StreamReader sw = new StreamReader(@"C:\Users\User\Desktop\pp2 labs\week 5,6\SNAKE\" + cnt+".txt");
+            asdf = new List<Point>();
             int mani = int.Parse(sw.ReadLine());
             for (int i = 0; i < mani; i++)
             {
@@ -42,7 +42,7 @@ namespace Snake
                     
                     if (line[j] == '*')
                     {
-                        asdf.Add(new point(j, i));
+                        asdf.Add(new Point(j, i));
                     }
                 }
             }
@@ -51,30 +51,48 @@ namespace Snake
         public Wall()
         {
             a = "*";
-            asdf = new List<point>();
+            asdf = new List<Point>();
         }
-        public bool Checking(int x, int y)
-        {
-            Snake snake = new Snake();
-            for (int i = 0; i < asdf.Count; i++)
-            {
-               for(int j=0; j < snake.body.Count; j++)
-                {
-                    if ((snake.body[j].x == x && snake.body[j].y == y) || (asdf[i].x == x && asdf[i].y == y))
-                        return true;
-                }
-            }
-            return false;
-        }
+        
         public void Draw()
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            foreach (point p in asdf)
+            foreach (Point p in asdf)
             {
                 Console.SetCursorPosition(p.x,p.y);
                 Console.WriteLine(a);
             }
            
+        }
+        public void Level(Wall wall,Snake snake)
+        {
+            if (snake.body.Count == 4)
+            {
+                Console.Clear();
+                wall.cnt++;
+                wall.wallpoint();
+                int j1 = 5;
+                for (int i = 0; i < snake.body.Count; i++)
+                {
+                    snake.body[i].x = j1;
+                    snake.body[i].y = 15;
+                    j1++;
+                }
+            }
+            if (snake.body.Count == 8)
+            {
+                
+                Console.Clear();
+                wall.cnt++;
+                wall.wallpoint();
+                int j2 = 5;
+                for (int i = 0; i < snake.body.Count; i++)
+                {
+                    snake.body[i].x = j2;
+                    snake.body[i].y = 15;
+                    j2++;
+                }
+            }
         }
     }
 }

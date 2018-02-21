@@ -22,7 +22,7 @@ namespace Project_for_AskarAkshabayev
                 Console.WriteLine("if you want to create another shop, tap 2");
                 ConsoleKeyInfo pk = Console.ReadKey();
 
-                if (pk.Key == ConsoleKey.NumPad1)
+                if (pk.Key == ConsoleKey.NumPad1 || pk.Key == ConsoleKey.D1)
                 {
                     Console.Clear();
                     for (int i = 0; i < f.Length; i++)
@@ -31,7 +31,7 @@ namespace Project_for_AskarAkshabayev
                     }
                     int t=0;
                     string line = Console.ReadLine();
-                    /*foreach(FileInfo ff in f)
+                    foreach(FileInfo ff in f)
                     {
                         if (ff.Name == line)
                         {
@@ -44,7 +44,7 @@ namespace Project_for_AskarAkshabayev
                         Console.WriteLine("Unfortunately, we do not this kind of shop");
                         Console.ReadKey();
                         continue;
-                    }*/
+                    }
                         shop.nameoffiles = line;
                         Console.Clear();
                         shop.Shoplist();
@@ -70,7 +70,7 @@ namespace Project_for_AskarAkshabayev
                         }
                     
                 }
-                if (pk.Key == ConsoleKey.NumPad2)
+                if (pk.Key == ConsoleKey.NumPad2 || pk.Key==ConsoleKey.D2)
                 {
                     Console.Clear();
                     string line2 = Console.ReadLine();

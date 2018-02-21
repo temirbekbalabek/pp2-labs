@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Formatters.Binary;
 namespace Snake
-{ [Serializable]
-    public class point
+{
+     public class Point
     {
         public int x, y;
-        public point() { }
-        public point(int x, int y)
+        public Point() { }
+        public Point(int x, int y)
         {
             this.x = x;
             this.y = y;
