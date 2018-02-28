@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Snake
 {
@@ -16,6 +18,21 @@ namespace Snake
         {
             color = ConsoleColor.Green;
             sign='@';
+        }
+        public void F1()
+        {
+            StreamWriter sw = new StreamWriter("data1.xml", false);
+            XmlSerializer xs = new XmlSerializer(typeof(Food));
+            xs.Serialize(sw, this);
+            sw.Close();
+        }
+        public Food F2()
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(Food));
+            FileStream fs = new FileStream("data1.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            Food food = xs.Deserialize(fs) as Food;
+            fs.Close();
+            return food;
         }
         public void SetRandomPosition(Wall wall, Snake snake)
         {

@@ -16,15 +16,15 @@ namespace Snake
         public int cnt;
         public void F1()
         {
+            StreamWriter sw = new StreamWriter("data2.xml", false);
             XmlSerializer xs = new XmlSerializer(typeof(Wall));
-            FileStream fs = new FileStream("data2.xml", FileMode.Truncate, FileAccess.ReadWrite);
-            xs.Serialize(fs, this);
-            fs.Close();
+            xs.Serialize(sw, this);
+            sw.Close();
         }
         public Wall F2()
         {
             XmlSerializer xs = new XmlSerializer(typeof(Wall));
-            FileStream fs = new FileStream("data2.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream("data2.xml", FileMode.Open, FileAccess.Read);
             Wall wall = xs.Deserialize(fs) as Wall;
             fs.Close();
             return wall;

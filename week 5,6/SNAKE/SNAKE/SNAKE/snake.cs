@@ -25,15 +25,15 @@ namespace Snake
         }
         public void F1()
         {
+            StreamWriter sw = new StreamWriter("data3.xml", false);
             XmlSerializer xs = new XmlSerializer(typeof(Snake));
-            FileStream fs = new FileStream("d.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-            xs.Serialize(fs, this);
-            fs.Close();
+            xs.Serialize(sw, this);
+            sw.Close();
         }
         public Snake F2()
         {
             XmlSerializer xs = new XmlSerializer(typeof(Snake));
-            FileStream fs = new FileStream("d.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream("data3.xml", FileMode.OpenOrCreate, FileAccess.ReadWrite);
             Snake snake = xs.Deserialize(fs) as Snake;
             fs.Close();
             return snake;

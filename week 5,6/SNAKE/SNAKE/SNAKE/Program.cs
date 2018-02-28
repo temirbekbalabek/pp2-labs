@@ -26,7 +26,6 @@ namespace Snake
             {
                 if((food.location.x == snake.body[0].x && food.location.y == snake.body[0].y))
                 {
-
                     wall.Level(wall, snake);
                     if (snake.body.Count > 1)
                         snake.body.Add(new Point(snake.body[snake.body.Count - 1].x, snake.body[snake.body.Count - 1].y));
@@ -48,6 +47,7 @@ namespace Snake
                     snake.RecordSave(username, snake.body.Count);
                     k = 1;
                 }
+                food.Draw();
                 snake.Draw();
                 wall.wallpoint();
                 wall.Draw();
@@ -78,15 +78,16 @@ namespace Snake
                     {
                         snake.F1();
                         wall.F1();
+                        food.F1();
+                    //thread.Suspend();
                     }
                     if (pk.Key == ConsoleKey.V)
                     {
                         Console.Clear();
+                    //thread.Resume();
                         snake = snake.F2();
                         wall = wall.F2();
-                        k = 1;
-                    Console.WriteLine(snake.body[0].x+ " " +snake.body[0].y);
-                    Console.ReadKey();
+                        food = food.F2();
                     }
                     if (pk.Key == ConsoleKey.UpArrow)
                         direction = 2;
@@ -96,7 +97,6 @@ namespace Snake
                         direction = 4;
                     if (pk.Key == ConsoleKey.RightArrow)
                         direction = 3;
-               
             }
         }
     }
