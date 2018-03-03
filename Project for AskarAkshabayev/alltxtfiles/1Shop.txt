@@ -1,9 +1,8 @@
-8
+7
 Nan 75 44
-Albeni 140 19
+Albeni 140 18
 Superalbeni 200 20
 Snickers 130 30
-Supersnickers 205 30
-Alpengold 280 16
-Kazakhstanchocolate 275 15
-Alma 599 1
+Supersnickers 205 26
+Alpengold 280 15
+Kazakhstanchocolate 275 14

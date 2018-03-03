@@ -9,12 +9,12 @@ namespace Project_for_AskarAkshabayev
     class Shop
     {
         public List<Products> list;
-        public string nameoffiles;
+        public int ab;
         public Shop(){ }
-        public void Shoplist()
+        public void Shoplist(FileInfo f)
         {
             list = new List<Products>();
-            StreamReader sr = new StreamReader(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + nameoffiles + ".txt");
+            StreamReader sr = new StreamReader(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + f.Name);
             int n = int.Parse(sr.ReadLine());
             for (int i = 0; i < n; i++)
             {
@@ -27,52 +27,57 @@ namespace Project_for_AskarAkshabayev
             }
             sr.Close();
         }
-        public void Checking()
+        public void Checking(FileInfo f, int cursor)
         {
             List<Products> list2 = new List<Products>();
+            int cnt=0;
             for(int i = 0; i < list.Count; i++)
             {
                 if (list[i].quantity > 1)
                     list2.Add(new Products(list[i].name, list[i].price, list[i].quantity));
+                if (list[i].quantity < 1)
+                {
+                    cnt++;
+                }
+            }
+            if (cnt > 0)
+            {
+                ab = 1;
             }
             list = list2;
-        }
-        public void Buy(string s)
-        {
-            StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + nameoffiles + ".txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + f.Name);
             sw.WriteLine(list.Count);
-            int k = 0;
             for (int i = 0; i < list.Count; i++)
             {
-                if (s == list[i].name)
-                {
-                    k = 1;
-                    list[i].quantity--;
-                }
                 sw.WriteLine(list[i].name + " " + list[i].price + " " + list[i].quantity);
             }
             sw.Close();
-            if (k == 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Sorry,unfortunately we do not have such kind of thing");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Congratulations,you have successfully bought the product");
-            }
         }
-        public void Sell(string s,int a)
+        public void Buy(FileInfo f, int cursor)
+        {
+            StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + f.Name);
+            sw.WriteLine(list.Count);
+            list[cursor].quantity--;
+            for (int i = 0; i < list.Count; i++)
+            {
+                sw.WriteLine(list[i].name + " " + list[i].price + " " + list[i].quantity);
+            }
+            sw.Close();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Congratulations, you have successfully bought the product");
+                Console.ReadKey();
+        }
+        public void Sell(string s, int a, FileInfo f)
         {
             int k = 0;
-            StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + nameoffiles + ".txt");
+            StreamWriter sw = new StreamWriter(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles\" + f.Name);
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i].name == s)
                 {
                     k = 1;
                     list[i].quantity++;
+                    break;
                 }
             }
             if (k == 0)
@@ -93,14 +98,30 @@ namespace Project_for_AskarAkshabayev
                 }
             }
             sw.Close();
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("You have successfully sold the product!");
+            Console.ReadKey();
         }
-        public void Draw()
+        public void Draw(int cursor)
         {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+            int index = 0;
             for(int i = 0; i < list.Count; i++)
             {
+                if (index == cursor)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
                 Console.WriteLine(list[i].name + " " + list[i].price + " " + list[i].quantity);
+                index++;
             }
         }
     }

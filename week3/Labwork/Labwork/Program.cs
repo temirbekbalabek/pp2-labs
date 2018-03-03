@@ -10,8 +10,7 @@ namespace ConsoleApp3
     {
         public static void S(FileSystemInfo[] d, int cursor)
         {
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.Clear();
+           
             int index = 0;
             int cnt = 1;
             //Console.SetCursorPosition(10, 10);

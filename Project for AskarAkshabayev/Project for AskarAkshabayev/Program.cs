@@ -8,10 +8,33 @@ namespace Project_for_AskarAkshabayev
 {
     class Program
     {
+        static void FileDrawer(FileInfo[] f, int cursor)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+            int index = 0;
+            for (int i = 0; i < f.Length; i++)
+            {
+                if (index == cursor)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                index++;
+                Console.WriteLine(f[i]);
+            }
+        }
         static void Main(string[] args)
         {
-            
             Shop shop = new Shop();
+            int cursor1 = 0;
+            int cursor2 = 0;
+            int n = 0;
             while (true)
             {
                 DirectoryInfo d = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles");
@@ -21,54 +44,101 @@ namespace Project_for_AskarAkshabayev
                 Console.WriteLine("if you want to see our shops, tap 1");
                 Console.WriteLine("if you want to create another shop, tap 2");
                 ConsoleKeyInfo pk = Console.ReadKey();
-
+                if (pk.Key == ConsoleKey.Escape)
+                {
+                    Console.ReadKey();
+                    return;
+                }
                 if (pk.Key == ConsoleKey.NumPad1 || pk.Key == ConsoleKey.D1)
                 {
                     Console.Clear();
-                    for (int i = 0; i < f.Length; i++)
+                    FileDrawer(f,cursor1);
+                    while (true)
                     {
-                        Console.WriteLine(f[i]);
-                    }
-                    int t=0;
-                    string line = Console.ReadLine();
-                    foreach(FileInfo ff in f)
-                    {
-                        if (ff.Name == line)
+                        ConsoleKeyInfo pk2 = Console.ReadKey();
+                        Console.Clear();
+                        if (pk2.Key == ConsoleKey.UpArrow)
                         {
-                            t = 1;
+                            cursor1--;
+                            if (cursor1 == -1)
+                                cursor1 = f.Length-1;
+                        }
+                        if (pk2.Key == ConsoleKey.DownArrow)
+                        {
+                            cursor1 = (cursor1 + 1) % f.Length;
+                        }
+                        FileDrawer(f, cursor1);
+                        if (pk2.Key == ConsoleKey.Enter)
+                        {
+                            Console.Clear();
+                            shop.Shoplist(f[cursor1]);
+                            shop.Draw(cursor1);
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("\nIf you want to buy something, tap any product");
+                            Console.WriteLine("if you want to sell something, tap S");
+                            while (true)
+                            {
+                                ConsoleKeyInfo pk3 = Console.ReadKey();
+                                if (pk3.Key == ConsoleKey.UpArrow)
+                                {
+                                    cursor2--;
+                                    if (cursor2 == -1)
+                                        cursor2 = shop.list.Count - 1;
+                                }
+                                if (pk3.Key == ConsoleKey.DownArrow)
+                                {
+                                    cursor2 = (cursor2 + 1) % shop.list.Count;
+                                }
+                                if (pk3.Key == ConsoleKey.Enter)
+                                {
+                                    Console.Clear();
+                                    shop.Buy(f[cursor1], cursor2);
+                                    shop.Checking(f[cursor1], cursor2);
+                                    if (shop.ab == 1)
+                                        cursor2 = 0;
+                                }
+                                if (pk3.Key == ConsoleKey.Escape)
+                                {
+                                    n = 1;
+                                    Console.Clear();
+                                    FileDrawer(f, cursor1);
+                                    break;
+                                }
+                                Console.Clear();
+                                shop.Shoplist(f[cursor1]);
+                                shop.Draw(cursor2);
+                                Console.BackgroundColor = ConsoleColor.Black;
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("\nIf you want to buy something, tap any product");
+                                Console.WriteLine("if you want to sell something, tap S");
+                                if (pk3.Key == ConsoleKey.S)
+                                {
+                                    Console.Clear();
+                                    string nameofproduct2 = Console.ReadLine();
+                                    int b = int.Parse(Console.ReadLine());
+                                    shop.Sell(nameofproduct2, b, f[cursor1]);
+                                    Console.Clear();
+                                    shop.Shoplist(f[cursor1]);
+                                    shop.Draw(cursor2);
+                                    Console.BackgroundColor = ConsoleColor.Black;
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine("\nIf you want to buy something, tap any product");
+                                    Console.WriteLine("if you want to sell something, tap S");
+                                }
+                            }
+                        }
+                        n = 0;
+                        if (pk2.Key == ConsoleKey.Escape)
+                        {
+                            n = 1;
                             break;
                         }
                     }
-                    if (t == 0)
-                    {
-                        Console.WriteLine("Unfortunately, we do not this kind of shop");
-                        Console.ReadKey();
+                    if (n == 1)
                         continue;
-                    }
-                        shop.nameoffiles = line;
-                        Console.Clear();
-                        shop.Shoplist();
-                        shop.Draw();
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-
-                        Console.WriteLine("If you want to buy something, tap B");
-                        Console.WriteLine("if you want to sell something, tap S");
-                        ConsoleKeyInfo pk1 = Console.ReadKey();
-                        if (pk1.Key == ConsoleKey.B)
-                        {
-                            Console.Clear();
-                            string nameofproduct = Console.ReadLine();
-                            shop.Buy(nameofproduct);
-                            shop.Checking();
-                        }
-                        if (pk1.Key == ConsoleKey.S)
-                        {
-                            Console.Clear();
-                            string nameofproduct2 = Console.ReadLine();
-                            int b = int.Parse(Console.ReadLine());
-                            shop.Sell(nameofproduct2, b);
-                        }
-                    
+                    n = 0;
+                  
                 }
                 if (pk.Key == ConsoleKey.NumPad2 || pk.Key==ConsoleKey.D2)
                 {
@@ -78,6 +148,10 @@ namespace Project_for_AskarAkshabayev
                     StreamWriter sw = new StreamWriter(fs);
                     sw.WriteLine("0");
                     sw.Close();
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("You have successfully created a new shop, called " + line2);
+                    Console.ReadKey();
                 }
 
             }          
