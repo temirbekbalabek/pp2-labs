@@ -1,5 +1,5 @@
 7
-Nan 75 51
+Nan 75 50
 Albeni 140 20
 Superalbeni 200 11
 Snickers 130 29

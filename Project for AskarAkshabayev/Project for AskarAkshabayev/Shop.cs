@@ -33,7 +33,7 @@ namespace Project_for_AskarAkshabayev
             int cnt=0;
             for(int i = 0; i < list.Count; i++)
             {
-                if (list[i].quantity > 1)
+                if (list[i].quantity >=1)
                     list2.Add(new Products(list[i].name, list[i].price, list[i].quantity));
                 if (list[i].quantity < 1)
                 {
@@ -102,6 +102,27 @@ namespace Project_for_AskarAkshabayev
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("You have successfully sold the product!");
             Console.ReadKey();
+        }
+        public void FileDrawer(FileInfo[] f, int cursor)
+        {
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.Clear();
+            int index = 0;
+            for (int i = 0; i < f.Length; i++)
+            {
+                if (index == cursor)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+                index++;
+                Console.WriteLine(f[i]);
+            }
         }
         public void Draw(int cursor)
         {

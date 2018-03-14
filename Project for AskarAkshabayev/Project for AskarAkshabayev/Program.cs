@@ -8,35 +8,15 @@ namespace Project_for_AskarAkshabayev
 {
     class Program
     {
-        static void FileDrawer(FileInfo[] f, int cursor)
-        {
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.Clear();
-            int index = 0;
-            for (int i = 0; i < f.Length; i++)
-            {
-                if (index == cursor)
-                {
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.ForegroundColor = ConsoleColor.DarkGreen;
-                }
-                else
-                {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                }
-                index++;
-                Console.WriteLine(f[i]);
-            }
-        }
         static void Main(string[] args)
         {
             Shop shop = new Shop();
             int cursor1 = 0;
             int cursor2 = 0;
-            int n = 0;
+            //int n = 0;
             while (true)
             {
+                cursor1 = 0;
                 DirectoryInfo d = new DirectoryInfo(@"C:\Users\User\Desktop\pp2 labs\Project for AskarAkshabayev\alltxtfiles");
                 FileInfo[] f = d.GetFiles();
                 Console.Clear();
@@ -52,7 +32,7 @@ namespace Project_for_AskarAkshabayev
                 if (pk.Key == ConsoleKey.NumPad1 || pk.Key == ConsoleKey.D1)
                 {
                     Console.Clear();
-                    FileDrawer(f,cursor1);
+                    shop.FileDrawer(f,cursor1);
                     while (true)
                     {
                         ConsoleKeyInfo pk2 = Console.ReadKey();
@@ -67,16 +47,23 @@ namespace Project_for_AskarAkshabayev
                         {
                             cursor1 = (cursor1 + 1) % f.Length;
                         }
-                        FileDrawer(f, cursor1);
+                        shop.FileDrawer(f, cursor1);
+                        if (pk2.Key == ConsoleKey.Escape)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            break;
+                        }
                         if (pk2.Key == ConsoleKey.Enter)
                         {
                             Console.Clear();
                             shop.Shoplist(f[cursor1]);
-                            shop.Draw(cursor1);
+                            int k = 0;
+                            shop.Draw(k);
                             Console.BackgroundColor = ConsoleColor.Black;
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.WriteLine("\nIf you want to buy something, tap any product");
                             Console.WriteLine("if you want to sell something, tap S");
+                            cursor2 = 0;
                             while (true)
                             {
                                 ConsoleKeyInfo pk3 = Console.ReadKey();
@@ -100,9 +87,8 @@ namespace Project_for_AskarAkshabayev
                                 }
                                 if (pk3.Key == ConsoleKey.Escape)
                                 {
-                                    n = 1;
                                     Console.Clear();
-                                    FileDrawer(f, cursor1);
+                                    shop.FileDrawer(f, cursor1);
                                     break;
                                 }
                                 Console.Clear();
@@ -128,17 +114,8 @@ namespace Project_for_AskarAkshabayev
                                 }
                             }
                         }
-                        n = 0;
-                        if (pk2.Key == ConsoleKey.Escape)
-                        {
-                            n = 1;
-                            break;
-                        }
+                        
                     }
-                    if (n == 1)
-                        continue;
-                    n = 0;
-                  
                 }
                 if (pk.Key == ConsoleKey.NumPad2 || pk.Key==ConsoleKey.D2)
                 {
