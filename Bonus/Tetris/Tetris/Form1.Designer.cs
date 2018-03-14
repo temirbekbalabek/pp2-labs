@@ -36,12 +36,15 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(94, 218);
+            this.button1.BackColor = System.Drawing.Color.Chartreuse;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button1.Location = new System.Drawing.Point(135, 251);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(26, 23);
+            this.button1.Size = new System.Drawing.Size(28, 29);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Text = "▲";
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.button1_KeyDown);
             // 
             // timer1
