@@ -34,14 +34,24 @@ namespace Tetris
                 int y2 = body[i].Location.Y;
                 int bw2 = body[i].Width;
                 int bh2 = body[i].Height;
-                if (x2 + bw2 - x1 > 0)
+                if (x2 > x1 && y2>y1)
                 {
-                    if (x2 + bw2 - x1 < bw1 + bw2 && y1 + bh1 - y2 <= bh1 + bh2)
+                    if (x2 + bw2 - x1 < bw1 + bw2 && y2+bh2-y1<bh1+bh2)
                         return true;
                 }
-                if(x1+bw1-x2>0)
+                if (x2 > x1 && y2 < y1)
                 {
-                    if ((x1 + bw1 - x2 < bw1+bw2) && (y1 + bh1 - y2 <=bh1+bh2))
+                    if (x2 + bw2 - x1 < bw1 + bw2 && y1 + bh1 - y2 < bh1 + bh2)
+                        return true;
+                }
+                if (x1>x2 && y1>y2)
+                {
+                    if ((x1 + bw1 - x2 < bw1+bw2) && (y1+bh1-y2 < bh1 + bh2))
+                        return true;
+                }
+                if (x1 > x2 && y2>y1)
+                {
+                    if ((x1 + bw1 - x2 < bw1 + bw2) && (y2 + bh2 - y1 < bh1 + bh2))
                         return true;
                 }
             }
