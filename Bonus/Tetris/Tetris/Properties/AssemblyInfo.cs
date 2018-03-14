@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("bonus2")]
+[assembly: AssemblyTitle("Tetris")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("bonus2")]
+[assembly: AssemblyProduct("Tetris")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Следующий GUID служит для идентификации библиотеки типов, если этот проект будет видимым для COM
-[assembly: Guid("4a217a36-9e91-4fbb-9473-6100dddf7ef4")]
+[assembly: Guid("cb445951-5b33-4cdb-b632-bfb7cf4ecc4a")]
 
 // Сведения о версии сборки состоят из следующих четырех значений:
 //

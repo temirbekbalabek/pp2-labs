@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace _3.Properties
+namespace Tetris.Properties
 {
 
 

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0B9DC6A-4E08-4145-8202-3F500AAA3501}</ProjectGuid>
+    <ProjectGuid>{CB445951-5B33-4CDB-B632-BFB7CF4ECC4A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>_3</RootNamespace>
-    <AssemblyName>3</AssemblyName>
+    <RootNamespace>Tetris</RootNamespace>
+    <AssemblyName>Tetris</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
