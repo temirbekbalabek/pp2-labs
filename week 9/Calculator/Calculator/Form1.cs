@@ -12,158 +12,118 @@ namespace Calculator
 {
     public partial class CALCULATOR : Form
     {
-        double fn = 0, sn = 0, result=0;
-        public int cnt = 0;
-        string operation="";
+        public double tcnt = 0, operation1cnt = 0, operationcnt = 0;
+        Calc calc = new Calc();
+        public string s="";
         public CALCULATOR()
         {
             InitializeComponent();
         }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            numbers.Text = "1";
-            button2.Text = "2";
-            button3.Text = "3";
-            button4.Text = "4";
-            button5.Text = "5";
-            button6.Text = "6";
-            button7.Text = "7";
-            button8.Text = "8";
-            button9.Text = "9";
-            button10.Text = "0";
-            button11.Text = "+/─";
-            button12.Text = ",";
-            button13.Text = "/";
-            button14.Text = "×";
-            button15.Text = "─";
-            button16.Text = "+";
-            button17.Text = "=";
-            button18.Text = "CE";
-            button19.Text = "C";
-            button20.Text = "←";
-            button21.Text = "%";
-            button22.Text = "√";
-            button23.Text = "x^2";
-            button24.Text = "1/x";
-
-        }
+        
         private void numbers_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            textBox1.Text += btn.Text;
-            label1.Text += btn.Text;
+            if (textBox1.Text == "0")
+            {
+                textBox1.Text = "";
+            }
+            for (int i = 0; i < textBox1.Text.Length; i++)
+            {
+                if (textBox1.Text[i] == ',')
+                    tcnt++;
+            }
+            if (tcnt > 0 && btn.Text == ",")
+            {
+                return;
+            }
+            else
+            {
+                if (operation1cnt == 1)
+                {
+                    textBox1.Text = "";
+                    calc.result = 0;
+                    calc.fn = 0;
+                    calc.sn = 0;
+                    label1.Text = "";
+                }
+                textBox1.Text += btn.Text;
+            }
+            operationcnt = 0;
+            s += btn.Text;
         }
 
         private void operation_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
+            if (operationcnt == 1)
+            {
+                calc.operation = btn.Text;
+                string j = "";
+                for(int i = 0; i < label1.Text.Length-1; i++)
+                {
+                    j += label1.Text[i];
+                }
+                label1.Text = j;
+                label1.Text += btn.Text;
+                 return;
+            }
             double a = double.Parse(textBox1.Text);
-            if (operation != "")
-            {
-                if (operation == "×")
-                {
-                    fn = fn * a;       
-                }
-                if (operation == "/")
-                {
-                    fn = fn / a;
-                }
-                if (operation == "─")
-                {
-                    fn = fn - a;
-                }
-                if (operation == "+")
-                {
-                    fn = fn + a;
-                }
-            }
-            else
-            fn = a;
+            calc.calculate1(a);
 
+            tcnt = 0;
+            operation1cnt = 0;
             textBox1.Text = "";
-            operation = btn.Text;
-            if (operation == "√")
-            {
-                result = Math.Sqrt(a);
-                textBox1.Text = result.ToString();
-                label1.Text = "";
-                return;
-            }
-            if (operation == "x^2")
-            {
-                result = a*a;
-                textBox1.Text = result.ToString();
-                label1.Text = "";
-                return;
-            }
-            if (operation == "1/x")
-            {
-                result = 1 / a;
-                textBox1.Text = result.ToString();
-                label1.Text = "";
-                return;
-            }
-            if (operation == "+/─")
-            {
-                result = 0 - a;
-                textBox1.Text = result.ToString();
-                label1.Text = "";
-                return;
-            }
+            calc.operation = btn.Text;
+            label1.Text += s;
+            s = "";
             label1.Text += btn.Text;
+            operationcnt = 1;
         }
+
+        private void operation1_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            calc.operation1 = btn.Text;
+            s="";
+            double a = double.Parse(textBox1.Text);
+            calc.calculate2(operation1cnt,label1.Text,textBox1.Text, a);
+            label1.Text = calc.l;
+            textBox1.Text = calc.t;
+            operation1cnt = calc.o1c;
+        }
+
+        private void memory_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            calc.operation = btn.Text;
+            calc.Memory(textBox1.Text);
+            textBox1.Text = calc.t;
+            label1.Text = calc.l;
+        }
+
         private void clear_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            operation = btn.Text;
-            if (operation == "C")
-            {
-                textBox1.Text = "";
-                label1.Text = "";
-                fn = 0;
-                sn = 0;
-                operation = "";
-            }
-            if (operation == "←")
-            {
-                string s1 = "",s2="";
-                for (int i = 0; i < textBox1.Text.Length - 1; i++)
-                {
-                    s1 += textBox1.Text[i];
-                }
-                for (int i = 0; i < label1.Text.Length - 1; i++)
-                {
-                    s2 += textBox1.Text[i];
-                }
-                fn = 0;
-                sn = 0;
-                result = 0;
-                textBox1.Text = s1;
-                label1.Text = s2;
-            }
+            calc.operation = btn.Text;
+            calc.Clear(operation1cnt, operationcnt, tcnt, label1.Text, textBox1.Text);
+            operationcnt = calc.oc;
+            operation1cnt = calc.o1c;
+            tcnt = calc.tcntt;
+            label1.Text = calc.l;
+            textBox1.Text = calc.t;
+            s = "";
         }
         private void result_Click(object sender, EventArgs e)
         {
-            sn = double.Parse(textBox1.Text);
-            if (operation == "×")
-            {
-                result = fn * sn;
-            }
-            if (operation == "/")
-            {
-                result = fn / sn;
-            }
-            if (operation == "─")
-            {
-                result = fn - sn;
-            }
-            if (operation == "+")
-            {
-                result = fn + sn;
-            }
-            textBox1.Text = result.ToString();
-            operation = "";
+            s = "";
+            if(operation1cnt==0)
+            calc.sn = double.Parse(textBox1.Text);
+            calc.Result();
+            label1.Text = "";
+            calc.fn = calc.result;
+            textBox1.Text = calc.result.ToString();
+            operation1cnt = 1;
+            operationcnt = 0;
         }
     }
 }
