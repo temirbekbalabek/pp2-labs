@@ -9,7 +9,8 @@ namespace Calculator
     public class Calc
     {
         public double fn = 0, sn = 0, result = 0, o1c = 0, oc = 0,tcntt;
-        public string operation = "", operation1 = "", l = "", t = "", b = "", memory = "";
+        public string operation = "", operation1 = "", l = "", t = "", b = "", memory = "",operation3="";
+        bool iserror = false;
         public void Numbers(double o1, double o, double tcnt, string label, string textBox, string btn)
         {
 
@@ -20,6 +21,18 @@ namespace Calculator
             
             if (operation != "")
             {
+                if (operation == "Mod")
+                {
+                    fn = fn % a;
+                }
+                if (operation == "x^y")
+                {
+                    fn = Math.Pow(fn, a);
+                }
+                if (operation == "x^(1/y)")
+                {
+                    fn = Math.Pow(fn, 1 / a);
+                }
                 if (operation == "×")
                 {
                     fn = fn * a;
@@ -41,6 +54,37 @@ namespace Calculator
                 fn = a;
             
         }
+        public void Result()
+        {
+            if (operation == "Mod")
+            {
+                result = fn % sn;
+            }
+            if (operation == "×")
+            {
+                result = fn * sn;
+            }
+            if (operation == "x^y")
+            {
+                result = Math.Pow(fn, sn);
+            }
+            if (operation == "x^(1/y)")
+            {
+                result = Math.Pow(fn, 1 / sn);
+            }
+            if (operation == "/")
+            {
+                result = fn / sn;
+            }
+            if (operation == "─")
+            {
+                result = fn - sn;
+            }
+            if (operation == "+")
+            {
+                result = fn + sn;
+            }
+        }
 
         public void calculate2(double o1,string label, string textBox, double a)
         {
@@ -50,15 +94,48 @@ namespace Calculator
                 sn = result;
                 textBox = result.ToString();
                 label += "√(";
+                label += a; 
+                label += ")";
+                o1 = 1;
+            }
+            if (operation1 == "exp(x)")
+            {
+                result = Math.Exp(a);
+                sn = result;
+                textBox = result.ToString();
+                label += "exp(";
                 label += a;
                 label += ")";
                 o1 = 1;
             }
-            if (operation1 == "tan(x)")
+            if (operation1 == "10^x")
             {
-                result = Math.Tan((Math.PI * a) / 180);
+                int ond = 1;
+                for(int i = 0; i < a; i++)
+                {
+                    ond *= 10;
+                }
+                result = ond;
                 sn = result;
                 textBox = result.ToString();
+                label += "10^";
+                label += a;
+                o1 = 1;
+            }
+
+            if (operation1 == "tan(x)")
+            {
+                if (a % 90 == 0 || a % 270 == 0)
+                {
+                    iserror = true;
+                }
+                else
+                    result = Math.Tan((Math.PI * a) / 180);
+                sn = result;
+                if (iserror)
+                    textBox = "Error";
+                else
+                    textBox = result.ToString();
                 label += "tan(";
                 label += a;
                 label += ")";
@@ -76,12 +153,31 @@ namespace Calculator
             }
             if (operation1 == "cos(x)")
             {
+                if(a % 90==0 || a % 270==0)
+                {
+                    result = 0;
+                }
+                else
                 result = Math.Cos((Math.PI * a) / 180);
                 sn = result;
                 textBox = result.ToString();
                 label += "cos(";
                 label += a;
                 label += ")";
+                o1 = 1;
+            }
+            if (operation1 == "!")
+            {
+                int kob = 1;
+                for(int i = 1; i <=a; i++)
+                {
+                    kob *= i;
+                }
+                result = kob;
+                sn = result;
+                textBox = result.ToString();
+                label +=a;
+                label += "!";
                 o1 = 1;
             }
             if (operation1 == "x^2")
@@ -114,25 +210,25 @@ namespace Calculator
         }
         public void Memory(string textBox)
         {
-            if (operation == "MS")
+            if (operation3 == "MS")
             {
                 memory = textBox;
             }
-            if (operation == "MC")
+            if (operation3 == "MC")
             {
                 memory = "0";
             }
-            if (operation == "MR")
+            if (operation3 == "MR")
             {
                 textBox = memory;
             }
-            if (operation == "M+")
+            if (operation3 == "M+")
             {
                 double m = double.Parse(textBox);
                 double n = double.Parse(memory);
                 memory = (n + m).ToString();
             }
-            if (operation == "M-")
+            if (operation3 == "M-")
             {
                 double m = double.Parse(textBox);
                 double n = double.Parse(memory);
@@ -141,29 +237,7 @@ namespace Calculator
             t = textBox;
             l = "";
         }
-        public void Result()
-        {
-            if (operation == "×")
-            {
-                result = fn * sn;
-            }
-            if (operation == "x^y")
-            {
-                result = Math.Pow(fn, sn);
-            }
-            if (operation == "/")
-            {
-                result = fn / sn;
-            }
-            if (operation == "─")
-            {
-                result = fn - sn;
-            }
-            if (operation == "+")
-            {
-                result = fn + sn;
-            }
-        }
+        
         public void Clear(double o1, double o, double tcnt, string label, string textBox)
         {
             if (operation == "C")
